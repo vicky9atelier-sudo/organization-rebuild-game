@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>조직 재건 시뮬레이션</title>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, "Apple SD Gothic Neo", sans-serif;
+      background: #f4f6f2;
+      color: #222;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 60px 24px;
+    }
+
+    h1 {
+      font-size: 42px;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      font-size: 19px;
+      color: #666;
+      margin-bottom: 45px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 18px;
+      padding: 32px;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.08);
+      margin-bottom: 24px;
+    }
+
+    button {
+      border: 0;
+      border-radius: 12px;
+      padding: 14px 22px;
+      font-size: 17px;
+      cursor: pointer;
+      background: #445b49;
+      color: white;
+      margin-top: 15px;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    #game {
+      display: none;
+    }
+
+    .choice {
+      display: block;
+      width: 100%;
+      margin: 10px 0;
+      text-align: left;
+    }
+
+    .score {
+      font-weight: bold;
+      margin-top: 25px;
+    }
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <div id="intro" class="card">
+
+    <h1>ORGANIZATION REBUILD</h1>
+
+    <div class="subtitle">
+      조직은 어떻게 무너지고, 어떻게 다시 세워지는가
+    </div>
+
+    <p>
+      당신은 혼란에 빠진 조직의 책임자로 부임했습니다.
+    </p>
+
+    <p>
+      보고 누락, 직원 간 갈등, 직장 내 괴롭힘,
+      위기 내담자 대응 실패, 불분명한 업무분장.
+    </p>
+
+    <p>
+      당신의 선택은 조직의 안전과 신뢰를 바꿉니다.
+    </p>
+
+    <button onclick="startGame()">시뮬레이션 시작</button>
+
+  </div>
+
+
+  <div id="game" class="card">
+
+    <h2 id="missionTitle">MISSION 1</h2>
+
+    <p id="story">
+      한 직원이 중요한 사건을 알고도 관리자에게 보고하지 않았습니다.
+      이후 문제가 커지자 "제가 알아서 해결하려고 했습니다"라고 말합니다.
+    </p>
+
+    <h3>관리자로서 어떻게 하시겠습니까?</h3>
+
+    <button class="choice" onclick="choose(1)">
+      A. 직원의 판단을 존중하고 이번에는 넘어간다.
+    </button>
+
+    <button class="choice" onclick="choose(2)">
+      B. 즉시 사실관계를 확인하고 보고 체계를 점검한다.
+    </button>
+
+    <button class="choice" onclick="choose(3)">
+      C. 공개적으로 강하게 질책해 다시는 이런 일이 없도록 한다.
+    </button>
+
+    <div id="result"></div>
+
+    <div class="score">
+      조직 신뢰 점수: <span id="score">50</span>
+    </div>
+
+  </div>
+
+</div>
+
+<script>
+
+let score = 50;
+
+function startGame() {
+  document.getElementById("intro").style.display = "none";
+  document.getElementById("game").style.display = "block";
+}
+
+function choose(choice) {
+
+  let result = "";
+
+  if (choice === 1) {
+    score -= 10;
+
+    result =
+    "⚠️ 판단을 개인에게 맡기면 보고 체계가 다시 무너질 수 있습니다.";
+
+  }
+
+  if (choice === 2) {
+    score += 15;
+
+    result =
+    "✅ 좋은 선택입니다. 사람을 공격하기보다 사실관계와 시스템을 먼저 확인했습니다.";
+
+  }
+
+  if (choice === 3) {
+    score -= 5;
+
+    result =
+    "⚠️ 책임 확인은 필요하지만 공개적인 질책은 조직의 심리적 안전을 떨어뜨릴 수 있습니다.";
+
+  }
+
+  document.getElementById("result").innerHTML =
+  "<p><strong>" + result + "</strong></p>";
+
+  document.getElementById("score").innerText = score;
+
+}
+
+</script>
+
+</body>
+</html>
